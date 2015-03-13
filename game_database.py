@@ -10,23 +10,18 @@ class GameData:
         self.online = None
 
 def load_games():
-    with open(r"\Users\Jumphreys\git\Records\gamefile.txt", mode = "rb", encoding = "utf-8") as gamefile:
-        data = gamefile.read()
-        return data            
+    with open("U:\git\Records\gamefile.txt", mode = "rb") as gamefile:
+        file_data = pickle.load(gamefile)
+        print(file_data[0].name)
+              
             
 
 def save_games(games, record):
-    with open(r"\Users\Jumphreys\git\Records\gamefile.txt", mode = "wb", encoding = "utf-8") as gamefile:
+    with open("U:\git\Records\gamefile.txt", mode = "ab") as gamefile:
         for record in games:
-            pickle.dump(record.name, gamefile)
-            pickle.dump(record.platform, gamefile)
-            pickle.dump(record.genre, gamefile)
-            pickle.dump(record.cost, gamefile)
-            pickle.dump(record.players, gamefile)
-            pickle.dump(record.online, gamefile)
+            pickle.dump(games, gamefile)
+            
 
-        
-        
 
 #the parameter is games because eventually you will be displaying
 #multiple games using this function
@@ -71,8 +66,8 @@ def display_menu():
 
 
 def main():
+    load_games()
     exit_program = False
-    imported = load_games()
     while not exit_program:
         display_menu()
         selected_option = int(input("Please select a menu option: "))
